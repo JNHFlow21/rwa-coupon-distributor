@@ -27,12 +27,7 @@ contract RWACouponDistributor is EIP712, Ownable {
     error SignatureExpired();
 
     // ============ Events ============
-    event Claimed(
-        uint256 indexed epochId,
-        uint256 indexed index,
-        address indexed account,
-        uint256 amount
-    );
+    event Claimed(uint256 indexed epochId, uint256 indexed index, address indexed account, uint256 amount);
     event MerkleRootUpdated(uint256 indexed epochId, bytes32 root);
 
     // ============ Storage ============
@@ -63,10 +58,7 @@ contract RWACouponDistributor is EIP712, Ownable {
      * 你再写 Ownable(_owner)，初始化管理员；
      * 最后 coupon = _coupon 把发放代币定死。
      */
-    constructor(IERC20 _coupon, address _owner)
-        EIP712("RWACouponDistributor", "1")
-        Ownable(_owner)
-    {
+    constructor(IERC20 _coupon, address _owner) EIP712("RWACouponDistributor", "1") Ownable(_owner) {
         coupon = _coupon;
     }
 
@@ -144,16 +136,12 @@ contract RWACouponDistributor is EIP712, Ownable {
 
     // ============ Internals ============
     /// @dev 生成 EIP-712 digest
-    function _hashClaim(
-        address account,
-        uint256 amount,
-        uint256 epochId,
-        uint256 nonce,
-        uint256 deadline
-    ) internal view returns (bytes32) {
-        return _hashTypedDataV4(
-            keccak256(abi.encode(CLAIM_TYPEHASH, account, amount, epochId, nonce, deadline))
-        );
+    function _hashClaim(address account, uint256 amount, uint256 epochId, uint256 nonce, uint256 deadline)
+        internal
+        view
+        returns (bytes32)
+    {
+        return _hashTypedDataV4(keccak256(abi.encode(CLAIM_TYPEHASH, account, amount, epochId, nonce, deadline)));
     }
 
     /// @dev 位图读取

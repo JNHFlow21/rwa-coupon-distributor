@@ -40,6 +40,7 @@ clean: ## 清理构建产物
 
 install: ## 安装依赖
 	forge install foundry-rs/forge-std
+	forge install dmfxyz/murky
 
 update: ## 更新依赖
 	forge update
