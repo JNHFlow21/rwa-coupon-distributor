@@ -41,6 +41,7 @@ clean: ## 清理构建产物
 install: ## 安装依赖
 	forge install foundry-rs/forge-std
 	forge install dmfxyz/murky
+	forge install Cyfrin/foundry-devops
 
 update: ## 更新依赖
 	forge update
@@ -82,15 +83,15 @@ anvil:
 ### ========== 一键部署 ==========
 deploy-anvil: ## 部署到本地 Anvil
 	@echo "🚀 Deploying to local Anvil..."
-	@forge script script/Deploy.s.sol:Deploy --rpc-url $(ANVIL_RPC_URL) --private-key $(ANVIL_PRIVATE_KEY) --broadcast -vvv
+	@forge script script/DeployAll.s.sol:DeployAll --rpc-url $(ANVIL_RPC_URL) --private-key $(ANVIL_PRIVATE_KEY) --broadcast -vvv
 
 deploy-sepolia: ## 部署到 Sepolia（含 Etherscan 验证）
 	@echo "🚀 Deploying to Sepolia..."
-	@forge script script/Deploy.s.sol:Deploy --rpc-url $(SEPOLIA_RPC_URL) --private-key $(SEPOLIA_PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvv
+	@forge script script/DeployAll.s.sol:DeployAll --rpc-url $(SEPOLIA_RPC_URL) --private-key $(SEPOLIA_PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvv
 
 deploy-mainnet: ## 部署到 Mainnet（含 Etherscan 验证）
 	@echo "🚀 Deploying to Mainnet..."
-	@forge script script/Deploy.s.sol:Deploy --rpc-url $(MAINNET_RPC_URL) --private-key $(MAINNET_PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvv
+	@forge script script/DeployAll.s.sol:DeployAll --rpc-url $(MAINNET_RPC_URL) --private-key $(MAINNET_PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvv
 
 ### ========== 实用工具 ==========
 check-balance: ## 查询钱包地址与 ETH 余额（Sepolia）
